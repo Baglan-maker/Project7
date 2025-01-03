@@ -69,7 +69,7 @@ exports.register = async (req, res) => {
             return res.status(400).json({ message: "IIN already taken" });
         }
 
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({ message: "Server error1" });
     }
 };
 
