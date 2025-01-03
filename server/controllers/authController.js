@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
         if (isPasswordValid) {
-            const payload = { iin: user.iin, fullName: user.fullName };
+            const payload = { iin: user.iin, fullName: user.full_name };
             const accessToken = generateAccessToken(payload);
             const refreshToken = generateRefreshToken(payload);
 
