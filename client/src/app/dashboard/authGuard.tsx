@@ -24,7 +24,7 @@ export const AuthGuardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
         const checkTokenValidity = async () => {
             try {
-                await api.post('/refresh');
+                await api.post('/refresh', {}, { withCredentials: true });
                 setIsTokenValid(true);
             } catch (error) {
                 if (axios.isAxiosError(error)) {

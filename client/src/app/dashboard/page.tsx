@@ -37,9 +37,7 @@ const DashboardContent = () => {
                 setAuthorized(true);
             } catch (error) {
                 console.warn('Ошибка авторизации:', error);
-                if (axios.isAxiosError(error) && error.response?.status === 401) {
-                    router.push('/auth/login');
-                }
+                router.push('/auth/login');
             }
         })();
     }, [router]);

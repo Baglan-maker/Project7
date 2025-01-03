@@ -33,7 +33,7 @@ api.interceptors.response.use(
 
             try {
                 // Запрос на обновление токена
-                await api.post('/refresh');
+                await api.post('/refresh', {}, { withCredentials: true });
 
                 // Повторяем оригинальный запрос
                 return api(originalRequest);
