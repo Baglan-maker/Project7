@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import api from '../lib/axios';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
@@ -26,21 +25,9 @@ const DashboardContent = () => {
     const { showModal, handleLogout, setShowModal } = useAuthGuard();
     const [open, setOpen] = useState(false);
 
-    const router = useRouter();
-    const [authorized, setAuthorized] = useState(false);
+    const [authorized] = useState(false);
     const [users, setUsers] = useState<User[]>([]);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                await api.get('/check');
-                setAuthorized(true);
-            } catch (error) {
-                console.warn('Ошибка авторизации:', error);
-                router.push('/auth/login');
-            }
-        })();
-    }, [router]);
 
     useEffect(() => {
         if (showModal) {
