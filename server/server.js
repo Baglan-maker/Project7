@@ -18,12 +18,12 @@ const authRoutes = require("./routes/auth");
 const app = express();
 
 const corsOptions = {
-    origin: [
+    origin:
         process.env.NODE_ENV === 'production'
-            ? process.env.PROD_CLIENT_URL // для продакшена
-            : process.env.DEV_CLIENT_URL,
-    ],
+            ? [process.env.PROD_CLIENT_URL] // для продакшена
+            : [process.env.DEV_CLIENT_URL],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
 
 app.use(cors(corsOptions));
@@ -32,6 +32,12 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use("/api", authRoutes);
+
+app.use((req, res, next) => {
+    console.log(`Incoming request: ${req.method} ${req.url}`);
+    console.log(`Origin: ${req.headers.origin}`);
+    next();
+});
 
 
 const PORT = process.env.PORT || 5000;
