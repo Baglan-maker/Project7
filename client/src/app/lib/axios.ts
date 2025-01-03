@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as process from "node:process";
 
 const api = axios.create({
     baseURL: process.env.NODE_ENV === 'production'
