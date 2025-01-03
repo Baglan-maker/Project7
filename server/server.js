@@ -20,8 +20,8 @@ const app = express();
 const corsOptions = {
     origin: [
         process.env.NODE_ENV === 'production'
-            ? "https://project7-lilac.vercel.app" // для продакшена
-            : "http://localhost:3000",
+            ? process.env.PROD_CLIENT_URL // для продакшена
+            : process.env.DEV_CLIENT_URL,
     ],
     credentials: true,
 };

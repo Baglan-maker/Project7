@@ -1,7 +1,10 @@
 import axios from "axios";
+import * as process from "node:process";
 
 const api = axios.create({
-    baseURL: 'https://project7-production.up.railway.app/api',
+    baseURL: process.env.NODE_ENV === 'production'
+        ? process.env.NEXT_PUBLIC_PROD_SERVER_URL
+        : process.env.NEXT_PUBLIC_DEV_SERVER_URL,
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true, // Автоматическая отправка cookies
 });
