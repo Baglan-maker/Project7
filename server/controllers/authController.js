@@ -3,6 +3,8 @@ const pool = require('../config/db');
 const jwt = require('jsonwebtoken');
 const { generateAccessToken, generateRefreshToken } = require('../utils/jwt');
 
+const isSecureCookie = process.env.NODE_ENV === 'production';
+
 // Логика аутентификации
 exports.login = async (req, res) => {
     const { iin, password } = req.body;
@@ -25,14 +27,14 @@ exports.login = async (req, res) => {
 
             res.cookie('accessToken', accessToken, {
                 httpOnly: true,
-                secure: true,
+                secure: isSecureCookie,
                 sameSite: 'none',
                 maxAge: 15 * 60 * 1000, // 5  минут
             });
 
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: true,
+                secure: isSecureCookie,
                 sameSite: 'none',
                 maxAge: 7 * 24 * 60 * 60 * 1000, // 7 дней
             });
@@ -87,7 +89,7 @@ exports.refreshToken = (req, res) => {
 
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
-            secure: true,
+            secure: isSecureCookie,
             sameSite: 'none',
             maxAge: 15 * 60 * 1000, // 15 минут
         });
@@ -117,7 +119,7 @@ exports.checkAuth = (req, res) => {
 
 
 exports.logout = async (req, res) => {
-    res.clearCookie('accessToken', { httpOnly: true, secure: true, sameSite: 'none' });
-    res.clearCookie('refreshToken', { httpOnly: true, secure: true, sameSite: 'none' });
+    res.clearCookie('accessToken', { httpOnly: true, secure: isSecureCookie, sameSite: 'none' });
+    res.clearCookie('refreshToken', { httpOnly: true, secure: isSecureCookie, sameSite: 'none' });
     return res.status(200).json({ message: 'Logged out' });
 };
