@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://project7-m15f.onrender.com' : 'http://localhost:5000/api',
+    baseURL: 'https://project7-production.up.railway.app/api',
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true, // Автоматическая отправка cookies
 });
