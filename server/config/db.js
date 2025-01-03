@@ -24,4 +24,15 @@ pool.query('SELECT NOW()', (err, res) => {
         console.log('Database connected', res.rows);
     }
 });
+
+(async () => {
+    try {
+        const client = await pool.connect();
+        console.log('Connected to the database!');
+        client.release();
+    } catch (error) {
+        console.error('Database connection error:', error);
+    }
+})();
+
 module.exports = pool;
