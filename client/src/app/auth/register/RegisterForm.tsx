@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ReCAPTCHA from "react-google-recaptcha";
 import api from "../../lib/axios";
+import axios from "axios";
 
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
 
@@ -63,21 +64,28 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         if (!captchaToken) {
-            setAlertMessage("Пожалуйста, пройдите CAPTCHA.");
+            setAlertMessage(t("Пожалуйста, пройдите CAPTCHA"));
             setAlertSeverity("error");
             return;
         }
         try {
             await api.post("/register", data);
-            setAlertMessage("Регистрация успешна!");
+            setAlertMessage(t("Регистрация успешна!"));
             setAlertSeverity("success");
             setTimeout(() => {
                 onLoginRedirect();
             }, 700);
         } catch (error) {
             console.error("Ошибка регистрации", error);
-            setAlertMessage("Не удалось зарегистрировать пользователя.");
-            setAlertSeverity("error");
+            if (axios.isAxiosError(error) && error.response) {
+                if (error.response.status === 400 && error.response.data.message === "IIN already taken") {
+                    setAlertMessage(t("Этот ИИН уже занят. Пожалуйста, введите другой"));
+                    setAlertSeverity("error");
+                } else {
+                    setAlertMessage(t("Не удалось зарегистрировать пользователя. Попробуйте еще раз позже"));
+                    setAlertSeverity("error");
+                }
+            }
         }
     };
 

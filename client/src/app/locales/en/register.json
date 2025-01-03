@@ -14,5 +14,10 @@
   "Дата рождения обязательна": "Birth Day is required",
   "Город обязателен": "City is required",
   "Пароль должен содержать минимум 6 символов": "The password must contain at least 6 characters",
-  "Пароль обязателен": "password is required"
+  "Пароль обязателен": "password is required",
+  "Пожалуйста, пройдите CAPTCHA": "Please pass the captcha",
+  "Не удалось зарегистрировать пользователя": "User registration failed",
+  "Регистрация успешна!": "Registration is successful!",
+  "Этот ИИН уже занят. Пожалуйста, введите другой": "This IIN is already taken. Please enter another one",
+  "Не удалось зарегистрировать пользователя. Попробуйте еще раз позже": "The user could not be registered. Try again later"
 }

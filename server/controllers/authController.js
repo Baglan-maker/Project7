@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
                 httpOnly: true,
                 secure: isSecureCookie,
                 sameSite: sameSiteCookie,
-                maxAge: 15 * 60 * 1000, // 5  минут
+                maxAge: 15 * 60 * 1000, // 15  минут
             });
 
             res.cookie('refreshToken', refreshToken, {

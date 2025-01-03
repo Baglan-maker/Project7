@@ -17,22 +17,4 @@ pool.on('error', (err) => {
     console.error('Unexpected error on idle client:', err);
 });
 
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('Error connecting to the database', err);
-    } else {
-        console.log('Database connected', res.rows);
-    }
-});
-
-(async () => {
-    try {
-        const client = await pool.connect();
-        console.log('Connected to the database!');
-        client.release();
-    } catch (error) {
-        console.error('Database connection error:', error);
-    }
-})();
-
 module.exports = pool;

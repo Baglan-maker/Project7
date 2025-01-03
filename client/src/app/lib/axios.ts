@@ -24,7 +24,6 @@ api.interceptors.response.use(
 
         if (originalRequest.url.includes('/refresh') && error.response?.status === 401) {
 
-            // Удаляем куки
             await handleLogout();
             return Promise.reject(error);
         }
@@ -34,15 +33,10 @@ api.interceptors.response.use(
             originalRequest._retry = true;
 
             try {
-                // Запрос на обновление токена
                 await api.post('/refresh', {}, { withCredentials: true });
-
-                // Повторяем оригинальный запрос
                 return api(originalRequest);
             } catch (err) {
-                // Удаляем cookies
                 await handleLogout();
-
                 return Promise.reject(err);
             }
         }

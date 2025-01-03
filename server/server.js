@@ -29,9 +29,26 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+    Sentry.withScope(scope => {
+        scope.setTag("path", req.path);
+        scope.setExtras({
+            method: req.method,
+            query: req.query,
+            body: req.body,
+        });
+        next();
+    });
+});
+
 app.use("/api", authRoutes);
 
+app.use((err, req, res, next) => {
+    Sentry.captureException(err);
+    console.error(err);
+
+    res.status(500).send({ error: "Internal Server Error" });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-console.log(process.env.PG_USER);

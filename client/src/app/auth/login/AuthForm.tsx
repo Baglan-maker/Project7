@@ -23,8 +23,8 @@ type Inputs = {
 };
 
 type LoginFormProps = {
-    onRegisterRedirect: () => void; // Функция для перенаправления на регистрацию
-    onDashboardRedirect: () => void; // Функция для перенаправления на дашборд
+    onRegisterRedirect: () => void;
+    onDashboardRedirect: () => void;
 };
 
 const LoginForm: React.FC<LoginFormProps> = ({
@@ -50,7 +50,6 @@ const LoginForm: React.FC<LoginFormProps> = ({
             await api.post('/login', data, { withCredentials: true });
             setAlertMessage(t("Вход выполнен успешно!"));
             setAlertSeverity("success");
-
             setTimeout(() => {
                 onDashboardRedirect();
             }, 700);

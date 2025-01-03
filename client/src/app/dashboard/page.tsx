@@ -84,14 +84,13 @@ const DashboardContent = () => {
         <div style={{ padding: '1rem', maxWidth: '900px', margin: '0 auto' }}>
             <ToastContainer
                 autoClose={3000}
-                hideProgressBar={true}
                 newestOnTop={true}
                 closeOnClick
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                style={{ fontSize: window.innerWidth < 600 ? '0.875rem' : '1rem' }} // Адаптивный размер шрифта
+                style={{ fontSize: window.innerWidth < 600 ? '0.875rem' : '1rem' }}
             />
             <h1>Добро пожаловать в Dashboard</h1>
             <button onClick={handleLogout}>Выйти</button>
