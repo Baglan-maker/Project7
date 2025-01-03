@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { generateAccessToken, generateRefreshToken } = require('../utils/jwt');
 
 const isSecureCookie = process.env.NODE_ENV === 'production';
-const sameSiteCookie = process.env.NODE_ENV === 'production' ? 'strict' : 'none';
+const sameSiteCookie = process.env.NODE_ENV === 'production' ? 'Strict' : 'none';
 
 // Логика аутентификации
 exports.login = async (req, res) => {
