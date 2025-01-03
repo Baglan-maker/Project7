@@ -17,12 +17,15 @@ const authRoutes = require("./routes/auth");
 
 const app = express();
 
-app.use(
-    cors({
-        origin: "http://localhost:3000",
-        credentials: true,
-    })
-);
+const corsOptions = {
+    origin: [
+        "http://localhost:3000", // для локальной разработки
+        "https://project7-lilac.vercel.app" // для продакшена
+    ],
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use(bodyParser.json());
