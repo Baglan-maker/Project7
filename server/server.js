@@ -18,13 +18,10 @@ const authRoutes = require("./routes/auth");
 const app = express();
 
 const corsOptions = {
-    origin:
-        process.env.NODE_ENV === 'production'
-            ? [process.env.PROD_CLIENT_URL] // для продакшена
-            : [process.env.DEV_CLIENT_URL],
+    origin: [
+        "https://project7-lilac.vercel.app" // для продакшена
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
@@ -33,12 +30,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use("/api", authRoutes);
-
-app.use((req, res, next) => {
-    console.log(`Incoming request: ${req.method} ${req.url}`);
-    console.log(`Origin: ${req.headers.origin}`);
-    next();
-});
 
 
 const PORT = process.env.PORT || 5000;
