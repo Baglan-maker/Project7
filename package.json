@@ -4,7 +4,7 @@
     "dev-server": "cross-env NODE_ENV=development nodemon server/server.js",
     "dev-client": "npm --prefix client run dev",
     "build": "npm --prefix client run build",
-    "start": "node server/server.js"
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "dependencies": {
     "@types/node": "^22.10.2",
