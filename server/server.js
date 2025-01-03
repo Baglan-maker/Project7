@@ -27,7 +27,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
-
+app.use(express.json());
 app.use(bodyParser.json());
 
 app.use("/api", authRoutes);
@@ -40,3 +40,4 @@ app.use((err, req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+console.log(process.env.PG_USER);
