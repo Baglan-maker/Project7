@@ -19,7 +19,7 @@ const app = express();
 
 const corsOptions = {
     origin: [
-        "https://project7-lilac.vercel.app"
+        process.env.CLIENT_URL
     ],
     credentials: true,
 };

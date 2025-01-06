@@ -9,13 +9,19 @@ const nextConfig: NextConfig = {
 
 module.exports = {
     async rewrites() {
+        const serverUrl =
+            process.env.NODE_ENV === 'production'
+                ? process.env.NEXT_PUBLIC_PROD_SERVER_URL
+                : process.env.NEXT_PUBLIC_DEV_SERVER_URL;
+
         return [
             {
                 source: '/api/:path*',
-                destination: process.env.NEXT_PUBLIC_PROD_SERVER_URL + '/api/:path*',
+                destination: `${serverUrl}/api/:path*`,
             },
         ];
     },
+
     webpack: (config: Configuration ) => {
         // Подавляем предупреждения Webpack
         if (config.module) {
