@@ -7,6 +7,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import api from "../../lib/axios";
+import {
+    loginFormStyles,
+    loginTypographyStyles,
+    loginAlertStyles,
+    authLoginButtonStyles,
+    registerTextStyles,
+    registerButtonStyles,
+} from 'src/app/styles';
 
 const getValidationSchema = (t: (key: string) => string) =>
     z.object({
@@ -64,24 +72,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <Box
             component="form"
             onSubmit={handleSubmit(onSubmit)}
-            sx={{
-                maxWidth: { xs: 320, sm: 400 }, // Ширина меняется для мобильных и больших экранов
-                mx: "auto",
-                mt: { xs: 4, sm: 8 }, // Меньший отступ сверху на мобильных
-                p: { xs: 2, sm: 4 }, // Паддинги для мобильных и десктопа
-                border: "1px solid #E0E0E0",
-                borderRadius: 2,
-                boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-                backgroundColor: "#fff",
-            }}
+            sx={loginFormStyles}
         >
             <Typography
                 variant="h5"
-                textAlign="center"
-                fontSize={{ xs: "1.25rem", sm: "1.5rem" }}
-                sx={{
-                    mb: { xs: 1.5, sm: 2.8 }
-                }}
+                sx={loginTypographyStyles}
             >
                 {t("Войти")}
             </Typography>
@@ -89,7 +84,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             {alertMessage && (
                 <Alert
                     severity={alertSeverity}
-                    sx={{ mb: 2, fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                    sx={loginAlertStyles}
                 >
                     {alertMessage}
                 </Alert>
@@ -110,14 +105,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 {...register("password")}
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                sx={{ mt: 1.5 }}
+                sx={{ mt: 1.3 }}
             />
 
             <Button
                 type="submit"
                 variant="contained"
                 fullWidth
-                sx={{ mt: 1.5, py: { xs: 1, sm: 1.5 } }} // Высота кнопки меняется
+                sx={authLoginButtonStyles}
             >
                 {t("Войти")}
             </Button>
@@ -125,16 +120,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
             <Box textAlign="center" mt={2}>
                 <Typography
                     variant="body2"
-                    fontSize={{ xs: "0.8rem", sm: "0.9rem" }}
+                    sx={registerTextStyles}
                 >
                     {t("Еще нет аккаунта?")}
                     <Button
                         variant="text"
                         size="small"
                         onClick={onRegisterRedirect}
-                        sx={{
-                            fontSize: { xs: "0.8rem", sm: "0.9rem" },
-                        }}
+                        sx={registerButtonStyles}
                     >
                         {t("Регистрация")}
                     </Button>

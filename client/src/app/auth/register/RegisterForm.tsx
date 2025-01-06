@@ -9,6 +9,14 @@ import { z } from "zod";
 import ReCAPTCHA from "react-google-recaptcha";
 import api from "../../lib/axios";
 import axios from "axios";
+import { formStyles,
+    typographyStyles,
+    alertStyles,
+    textFieldStyles,
+    captchaBoxStyles,
+    buttonStyles,
+    loginTextStyles,
+    loginButtonStyles } from 'src/app/styles';
 
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
 
@@ -93,24 +101,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         <Box
             component="form"
             onSubmit={handleSubmit(onSubmit)}
-            sx={{
-                maxWidth: { xs: 280, sm: 400 },
-                mx: "auto",
-                mt: { xs: 3, sm: 6 }, // Уменьшенный верхний отступ
-                p: { xs: 2, sm: 4 },
-                border: "1px solid #E0E0E0",
-                borderRadius: 2,
-                boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-                backgroundColor: "#fff",
-            }}
+            sx={formStyles}
         >
             <Typography
                 variant="h5"
-                textAlign="center"
-                fontSize={{ xs: "1rem", sm: "1.5rem" }}
-                sx={{
-                        mb: {xs: 2, sm: 4 }
-                    }}
+                sx={typographyStyles}
             >
                 {t("Регистрация")}
             </Typography>
@@ -118,10 +113,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             {alertMessage && (
                 <Alert
                     severity={alertSeverity}
-                    sx={{
-                        mb: 1.5, // Уменьшенный нижний отступ для уведомлений
-                        fontSize: { xs: "0.75rem", sm: "1rem" },
-                    }}
+                    sx={alertStyles}
                 >
                     {alertMessage}
                 </Alert>
@@ -134,7 +126,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 error={!!errors.iin}
                 helperText={errors.iin?.message}
                 sx={{
-                    mt: { xs: 0.8, sm: 1.5 }, // Уменьшенный отступ
+                    mt: { xs: 0.6, sm: 1.5 }, // Уменьшенный отступ
                     "& .MuiInputBase-root": {
                         fontSize: { xs: "0.875rem", sm: "1rem" },
                     },
@@ -149,15 +141,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 {...register("fullName")}
                 error={!!errors.fullName}
                 helperText={errors.fullName?.message}
-                sx={{
-                    mt: { xs: 0.8, sm: 1.5 },
-                    "& .MuiInputBase-root": {
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                    },
-                    "& .MuiFormHelperText-root": {
-                        fontSize: "0.75rem",
-                    },
-                }}
+                sx={textFieldStyles}
             />
             <TextField
                 label={t("Дата рождения")}
@@ -167,15 +151,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 {...register("birthDate")}
                 error={!!errors.birthDate}
                 helperText={errors.birthDate?.message}
-                sx={{
-                    mt: { xs: 0.8, sm: 1.5 },
-                    "& .MuiInputBase-root": {
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                    },
-                    "& .MuiFormHelperText-root": {
-                        fontSize: "0.75rem",
-                    },
-                }}
+                sx={textFieldStyles}
             />
             <TextField
                 label={t("Город")}
@@ -183,15 +159,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 {...register("city")}
                 error={!!errors.city}
                 helperText={errors.city?.message}
-                sx={{
-                    mt: { xs: 0.8, sm: 1.5 },
-                    "& .MuiInputBase-root": {
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                    },
-                    "& .MuiFormHelperText-root": {
-                        fontSize: "0.75rem",
-                    },
-                }}
+                sx={textFieldStyles}
             />
             <TextField
                 label={t("Пароль")}
@@ -200,29 +168,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 {...register("password")}
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                sx={{
-                    mt: { xs: 0.8, sm: 1.5 },
-                    "& .MuiInputBase-root": {
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                    },
-                    "& .MuiFormHelperText-root": {
-                        fontSize: "0.75rem",
-                    },
-                }}
+                sx={textFieldStyles}
             />
 
-            <Box
-                my={1}
-                display="flex"
-                justifyContent="center"
-                sx={{
-                    "& > div": {
-                        width: { xs: "100%", sm: "auto" },
-                        transform: { xs: "scale(0.85)", sm: "scale(1)" },
-                        transformOrigin: "center",
-                    },
-                }}
-            >
+            <Box sx={captchaBoxStyles}>
                 <ReCAPTCHA
                     sitekey={recaptchaSiteKey}
                     onChange={(token) => setCaptchaToken(token)}
@@ -233,11 +182,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 type="submit"
                 variant="contained"
                 fullWidth
-                sx={{
-                    mt: { xs: 0.8, sm: 2.5 },
-                    py: { xs: 1, sm: 1.5 },
-                    fontSize: { xs: "0.875rem", sm: "1rem" },
-                }}
+                sx={buttonStyles}
             >
                 {t("Регистрация")}
             </Button>
@@ -245,17 +190,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             <Box textAlign="center" mt={2}>
                 <Typography
                     variant="body2"
-                    fontSize={{ xs: "0.75rem", sm: "0.9rem" }}
+                    sx={loginTextStyles}
                 >
                     {t("Уже есть аккаунт?")}
                     <Button
                         variant="text"
                         size="small"
                         onClick={onLoginRedirect}
-                        sx={{
-                            fontSize: { xs: "0.75rem", sm: "0.9rem" },
-                        }}
-                    >
+                        sx={loginButtonStyles}>
                         {t("Войти")}
                     </Button>
                 </Typography>

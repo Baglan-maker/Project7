@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
 import { AuthGuardProvider, useAuthGuard } from 'src/app/dashboard/authGuard';
+import {wrapperStyles} from "@/app/styles";
 
 interface User {
     iin: string;
@@ -81,7 +82,7 @@ const DashboardContent = () => {
 
 
     return (
-        <div style={{ padding: '1rem', maxWidth: '900px', margin: '0 auto' }}>
+        <div style={wrapperStyles}>
             <ToastContainer
                 autoClose={3000}
                 newestOnTop={true}

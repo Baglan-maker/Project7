@@ -19,7 +19,7 @@ const app = express();
 
 const corsOptions = {
     origin: [
-        "https://project7-lilac.vercel.app"
+        "http://localhost:3000",
     ],
     credentials: true,
 };
@@ -29,19 +29,9 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    Sentry.withScope(scope => {
-        scope.setTag("path", req.path);
-        scope.setExtras({
-            method: req.method,
-            query: req.query,
-            body: req.body,
-        });
-        next();
-    });
-});
-
 app.use("/api", authRoutes);
+
+Sentry.setupExpressErrorHandler(app);
 
 app.use((err, req, res, next) => {
     Sentry.captureException(err);
