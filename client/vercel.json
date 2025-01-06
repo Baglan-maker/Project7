@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://project7-server.vercel.app/api/$1"
-    }
-  ]
-}
