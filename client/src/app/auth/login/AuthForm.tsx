@@ -7,14 +7,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import api from "../../lib/axios";
-import {
-    loginFormStyles,
-    loginTypographyStyles,
-    loginAlertStyles,
-    authLoginButtonStyles,
-    registerTextStyles,
-    registerButtonStyles,
-} from 'src/app/styles';
+import { loginFormStyles, loginTypographyStyles, loginAlertStyles, authLoginButtonStyles,
+    registerTextStyles, registerButtonStyles, } from 'src/app/styles';
 
 const getValidationSchema = (t: (key: string) => string) =>
     z.object({

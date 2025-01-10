@@ -13,11 +13,15 @@
   "Введите дату в формате ДД-ММ-ГГГГ": "Enter the date in the format DD-MM-YYYY",
   "Дата рождения обязательна": "Birth Day is required",
   "Город обязателен": "City is required",
-  "Пароль должен содержать минимум 6 символов": "The password must contain at least 6 characters",
   "Пароль обязателен": "password is required",
   "Пожалуйста, пройдите CAPTCHA": "Please pass the captcha",
   "Не удалось зарегистрировать пользователя": "User registration failed",
   "Регистрация успешна!": "Registration is successful!",
   "Этот ИИН уже занят. Пожалуйста, введите другой": "This IIN is already taken. Please enter another one",
-  "Не удалось зарегистрировать пользователя. Попробуйте еще раз позже": "The user could not be registered. Try again later"
+  "Не удалось зарегистрировать пользователя. Попробуйте еще раз позже": "The user could not be registered. Try again later",
+  "Введите полное имя и фамилию": "Enter your full first and last name",
+  "Пароль должен содержать минимум 8 символов": "The password must contain at least 8 characters",
+  "Дата должна быть в диапазоне с 1930 года до сегодняшнего дня": "The date should be in the range from 1930 to today",
+  "Пароль должен содержать хотя бы одну заглавную букву": "The password must contain at least one capital letter",
+  "Пароль должен содержать хотя бы одну цифру": "The password must contain at least one digit"
 }

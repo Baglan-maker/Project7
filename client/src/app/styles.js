@@ -29,6 +29,7 @@ export const textFieldStyles = {
     "& .MuiFormHelperText-root": {
         fontSize: "0.75rem",
     },
+    fontSize: { xs: "0.875rem", sm: "1rem" },
 };
 
 export const captchaBoxStyles = {

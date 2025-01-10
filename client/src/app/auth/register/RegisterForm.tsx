@@ -2,42 +2,20 @@
 
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Box, Button, TextField, Typography, Alert } from "@mui/material";
+import { Box, Button, TextField, Typography, Alert, MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { getValidationSchema } from "@/app/lib/validation";
 import ReCAPTCHA from "react-google-recaptcha";
 import api from "../../lib/axios";
 import axios from "axios";
-import { formStyles,
-    typographyStyles,
-    alertStyles,
-    textFieldStyles,
-    captchaBoxStyles,
-    buttonStyles,
-    loginTextStyles,
-    loginButtonStyles } from 'src/app/styles';
+import { formStyles, typographyStyles, alertStyles, textFieldStyles, captchaBoxStyles,
+    buttonStyles, loginTextStyles, loginButtonStyles } from 'src/app/styles';
+import { dropDownCities } from "src/app/lib/cities"
 
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
-
-const getValidationSchema = (t: (key: string) => string) => {
-    return z.object({
-        iin: z
-            .string()
-            .regex(/^\d{12}$/, t("ИИН должен содержать 12 цифр"))
-            .nonempty(t("ИИН обязателен")),
-        fullName: z.string().nonempty(t("ФИО обязательно")),
-        birthDate: z
-            .string()
-            .regex(/^\d{4}-\d{2}-\d{2}$/, t("Введите дату в формате ДД-ММ-ГГГГ"))
-            .nonempty(t("Дата рождения обязательна")),
-        city: z.string().nonempty(t("Город обязателен")),
-        password: z
-            .string()
-            .min(6, t("Пароль должен содержать минимум 6 символов"))
-            .nonempty(t("Пароль обязателен")),
-    });
-};
+const today = new Date();
+const todayFormatted = today.toISOString().split("T")[0]; // Формат YYYY-MM-DD
 
 type Inputs = {
     iin: string;
@@ -51,17 +29,18 @@ type RegisterFormProps = {
     onLoginRedirect: () => void;
 }
 
-const RegisterForm: React.FC<RegisterFormProps> = ({
-                                                       onLoginRedirect,
-                                                   }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({onLoginRedirect,}) => {
     const { t } = useTranslation("register");
     const schema = getValidationSchema(t);
     const {
-        register,
-        handleSubmit,
+        register, handleSubmit,
         formState: { errors },
     } = useForm<Inputs>({
         resolver: zodResolver(schema),
+        defaultValues: {
+            iin: "", fullName: "", birthDate: "",
+            city: "", password: "",
+        },
     });
 
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -125,15 +104,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 {...register("iin")}
                 error={!!errors.iin}
                 helperText={errors.iin?.message}
-                sx={{
-                    mt: { xs: 0.6, sm: 1.5 }, // Уменьшенный отступ
-                    "& .MuiInputBase-root": {
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                    },
-                    "& .MuiFormHelperText-root": {
-                        fontSize: "0.75rem",
-                    },
-                }}
+                sx={textFieldStyles}
             />
             <TextField
                 label={t("ФИО")}
@@ -146,21 +117,38 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             <TextField
                 label={t("Дата рождения")}
                 type="date"
-                InputLabelProps={{ shrink: true }}
                 fullWidth
                 {...register("birthDate")}
                 error={!!errors.birthDate}
                 helperText={errors.birthDate?.message}
+                slotProps={{ inputLabel: { shrink: true }, input: { inputProps: {
+                        min: "1930-01-01",
+                        max: todayFormatted,
+                    }, }, }}
                 sx={textFieldStyles}
             />
             <TextField
+                select
                 label={t("Город")}
                 fullWidth
                 {...register("city")}
                 error={!!errors.city}
                 helperText={errors.city?.message}
+                defaultValue=""
                 sx={textFieldStyles}
-            />
+                slotProps={{
+                    select: {
+                        MenuProps: {
+                            sx: {maxHeight: 48 * 6 + 8,},
+                        }, },
+                }}
+            >
+                {dropDownCities.map((city) => (
+                    <MenuItem key={city} value={city}>
+                        {city}
+                    </MenuItem>
+                ))}
+            </TextField>
             <TextField
                 label={t("Пароль")}
                 type="password"
@@ -178,10 +166,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 />
             </Box>
 
-            <Button
-                type="submit"
-                variant="contained"
-                fullWidth
+            <Button type="submit"
+                variant="contained" fullWidth
                 sx={buttonStyles}
             >
                 {t("Регистрация")}
@@ -203,9 +189,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 </Typography>
             </Box>
         </Box>
-
-
-
     );
 };
 

@@ -1,15 +1,13 @@
 const Sentry = require("@sentry/node");
-const { nodeProfilingIntegration } = require("@sentry/profiling-node");
 
 Sentry.init({
     dsn: process.env.SENTRY_DSN,
-    integrations: [
-        nodeProfilingIntegration(), // Интеграция для профилирования
-    ],
+    // integrations: [
+    //     nodeProfilingIntegration(), // Интеграция для профилирования
+    // ],
     tracesSampleRate: 1.0, // Отслеживаем 100% транзакций
 });
 
-Sentry.profiler.startProfiler();
 
 Sentry.startSpan({
     name: "My First Transaction",
@@ -19,6 +17,5 @@ Sentry.startSpan({
 
 // Calls to stopProfiling are optional - if you don't stop the profiler, it will keep profiling
 // your application until the process exits or stopProfiling is called.
-Sentry.profiler.stopProfiler();
 
 module.exports = Sentry;
