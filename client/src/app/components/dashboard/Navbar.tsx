@@ -8,8 +8,6 @@ const Navbar = () => {
             <LanguageSwitcherDash
                 style={{
                     position: 'fixed',
-                    top: '45px',
-                    right: '100px',
                     zIndex: 9999,
                 }}
             />
