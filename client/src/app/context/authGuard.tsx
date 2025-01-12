@@ -4,12 +4,14 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import api from '../lib/axios';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import SessionExpiredDialog from '@/app/components/modals/SessionExpiredDialog';
 
 interface AuthGuardContextProps {
     isTokenValid: boolean;
+    checkAuthorization: () => Promise<boolean>;
+    handleLogout: () => void;
     showModal: boolean;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-    handleLogout: () => void;
 }
 
 const AuthGuardContext = createContext<AuthGuardContextProps | null>(null);
@@ -17,8 +19,22 @@ const AuthGuardContext = createContext<AuthGuardContextProps | null>(null);
 export const AuthGuardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isTokenValid, setIsTokenValid] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const router = useRouter();
 
+    // Проверка токенов
+    const checkAuthorization = async () => {
+        try {
+            await api.get('/check');
+            setIsAuthorized(true);
+            return true;
+        } catch {
+            setIsAuthorized(false);
+            return false;
+        }
+    };
+
+    // Проверка валидности токена каждые 10 секунд
     useEffect(() => {
         let interval: NodeJS.Timeout;
 
@@ -28,15 +44,10 @@ export const AuthGuardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 setIsTokenValid(true);
             } catch (error) {
                 if (axios.isAxiosError(error)) {
-                    // Если ошибка с кодом 401 или 400, показываем модальное окно
                     if (error.response?.status === 401 || error.response?.status === 400) {
                         setIsTokenValid(false);
-                        setShowModal(true); // Показываем модальное окно при невалидном токене
-                    } else {
-                        console.error('Ошибка при проверке токена:', error);
+                        setShowModal(true);
                     }
-                } else {
-                    console.error('Ошибка при проверке токена:', error);
                 }
             }
         };
@@ -45,11 +56,10 @@ export const AuthGuardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             interval = setInterval(checkTokenValidity, 10 * 1000); // Проверка каждые 10 секунд
         }
 
-        return () => {
-            clearInterval(interval);
-        };
+        return () => clearInterval(interval);
     }, [isTokenValid]);
 
+    // Выход из системы
     const handleLogout = async () => {
         setShowModal(false);
         try {
@@ -60,9 +70,24 @@ export const AuthGuardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         }
     };
 
+    // Автоматическая проверка авторизации при загрузке страницы
+    useEffect(() => {
+        (async () => {
+            const isAuthorized = await checkAuthorization();
+            if (!isAuthorized) {
+                router.push('/auth/login');
+            }
+        })();
+    }, [router]);
+
+    if (!isAuthorized) {
+        return null; // Показать загрузку или ничего
+    }
+
     return (
-        <AuthGuardContext.Provider value={{ isTokenValid, showModal, setShowModal, handleLogout }}>
+        <AuthGuardContext.Provider value={{ isTokenValid, checkAuthorization, handleLogout, showModal, setShowModal }}>
             {children}
+            <SessionExpiredDialog />
         </AuthGuardContext.Provider>
     );
 };

@@ -1,4 +1,3 @@
-// styles.js
 export const formStyles = {
     maxWidth: { xs: 280, sm: 400 },
     mx: "auto",
@@ -104,6 +103,7 @@ export const wrapperStyles = {
     padding: '1rem',
     maxWidth: '900px',
     margin: '0 auto',
+    marginTop: '40px'
 };
 
 export const containerStyles = {
@@ -149,4 +149,50 @@ export const dividerStyles = {
     mx: 1,
     fontSize: { xs: "1rem", sm: "1.2rem" }, // Адаптивный размер
 };
+
+export const containerStylesDash = {
+    width: '100%',
+    paddingTop: 10,
+    paddingBottom: 4,
+    backgroundColor: '#f4f6f8',
+    borderRadius: 2,
+    boxShadow: 2,
+    textAlign: 'center',
+};
+
+export const welcomeTextStyles = {
+    fontWeight: 'bold',
+    color: '#ff4810',
+    marginBottom: 2,
+};
+
+export const buttonContainerStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 1.5,
+    marginY: 3,
+};
+
+export const buttonOutlinedStyles = {
+    padding: '6px 12px',
+    fontSize: '14px',
+    borderColor: '#6c757d',
+    color: '#6c757d',
+    '&:hover': {
+        backgroundColor: '#ff4810',
+        borderColor: '#ff4810',
+        color: '#fff',
+    },
+    '&:active': {
+        backgroundColor: '#ff4810',
+        borderColor: '#ff4810',
+        color: '#fff',
+    },
+};
+
+export const userListStyles = {
+    marginTop: 3,
+    textAlign: 'left',
+};
+
 

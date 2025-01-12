@@ -1,121 +1,50 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import api from '../lib/axios';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from "axios";
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
-import { AuthGuardProvider, useAuthGuard } from 'src/app/dashboard/authGuard';
-import {wrapperStyles} from "@/app/styles";
-
-interface User {
-    iin: string;
-    full_name: string;
-    city: string;
-}
+import { ToastContainer } from 'react-toastify';
+import { toastConfig } from '../utils/toastConfig';
+import { AuthGuardProvider, useAuthGuard } from '@/app/context/authGuard';
+import { Box, Button, Typography, Container } from '@mui/material';
+import { useUsers } from '@/app/lib/useUsers';
+import UserList from '@/app/components/dashboard/UserList';
+import { useTranslation } from 'react-i18next';
+import Navbar from '@/app/components/dashboard/Navbar';
+import { buttonContainerStyles, buttonOutlinedStyles, containerStylesDash,
+    userListStyles, welcomeTextStyles } from "@/app/styles/form-styles";
 
 const Dashboard = () => {
     return (
         <AuthGuardProvider>
+            <Navbar />
             <DashboardContent />
         </AuthGuardProvider>
     );
 };
 
 const DashboardContent = () => {
-    const { showModal, handleLogout, setShowModal } = useAuthGuard();
-    const [open, setOpen] = useState(false);
-
-    const router = useRouter();
-    const [authorized, setAuthorized] = useState(false);
-    const [users, setUsers] = useState<User[]>([]);
-
-    useEffect(() => {
-        (async () => {
-            try {
-                await api.get('/check');
-                setAuthorized(true);
-            } catch (error) {
-                console.warn('Ошибка авторизации:', error);
-                router.push('/auth/login');
-            }
-        })();
-    }, [router]);
-
-    useEffect(() => {
-        if (showModal) {
-            setOpen(true);
-        } else {
-            setOpen(false);
-        }
-    }, [showModal]);
-
-    if (!authorized) {
-        return null;
-    }
-
-    const handleContinue = () => {
-        setShowModal(false);
-        setOpen(false);
-    };
-
-    const fetchUsers = async () => {
-        try {
-            const response = await api.get<User[]>('/users');
-            setUsers(response.data);
-            toast.success('Список пользователей загружен!', {
-                position: window.innerWidth < 600 ? "top-center" : "bottom-right",
-            });
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response?.status === 400) {
-                toast.error('Токен истёк. Пожалуйста, авторизуйтесь снова.', {
-                    position: window.innerWidth < 600 ? "top-center" : "bottom-right",
-                });
-            } else {
-                toast.error('Не удалось загрузить список пользователей.', {
-                    position: window.innerWidth < 600 ? "top-center" : "bottom-right",
-                });
-            }
-        }
-    };
-
+    const { handleLogout } = useAuthGuard();
+    const { users, fetchUsers } = useUsers();
+    const { t } = useTranslation('dashboard');
 
     return (
-        <div style={wrapperStyles}>
-            <ToastContainer
-                autoClose={3000}
-                newestOnTop={true}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                style={{ fontSize: window.innerWidth < 600 ? '0.875rem' : '1rem' }}
-            />
-            <h1>Добро пожаловать в Dashboard</h1>
-            <button onClick={handleLogout}>Выйти</button>
-            <button onClick={fetchUsers}>Показать пользователей</button>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.iin}>
-                        {user.full_name} — {user.city}
-                    </li>
-                ))}
-            </ul>
+        <Container maxWidth={false} sx={containerStylesDash}>
+            <ToastContainer {...toastConfig} />
+            <Typography variant="h5" sx={welcomeTextStyles}>
+                {t("welcome")}
+            </Typography>
 
-            {/* Модальное окно MUI */}
-            <Dialog open={open} onClose={handleContinue}>
-                <DialogTitle>Срок действия сессии истёк</DialogTitle>
-                <DialogContent>
-                    <p>Продолжить или выйти?</p>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleLogout} color="primary">Выйти</Button>
-                    <Button onClick={handleContinue} color="secondary">Продолжить</Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+            <Box sx={buttonContainerStyles}>
+                <Button variant="outlined" onClick={fetchUsers} sx={buttonOutlinedStyles}>
+                    {t("showUsers")}
+                </Button>
+                <Button variant="outlined" onClick={handleLogout} sx={buttonOutlinedStyles}>
+                    {t("logout")}
+                </Button>
+            </Box>
+
+            <Box sx={userListStyles}>
+                <UserList users={users} />
+            </Box>
+        </Container>
     );
 };
 

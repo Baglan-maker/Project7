@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Typography, Link, Box } from "@mui/material";
-import {boxStyles, containerStyles, dividerStyles, homeTypographyStyles, linkStyles} from "@/app/styles";
+import {boxStyles, containerStyles, dividerStyles, homeTypographyStyles, linkStyles} from "@/app/styles/form-styles";
 
 export default function Home() {
     return (

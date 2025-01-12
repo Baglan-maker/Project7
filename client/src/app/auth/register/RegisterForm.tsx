@@ -10,8 +10,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import api from "../../lib/axios";
 import axios from "axios";
 import { formStyles, typographyStyles, alertStyles, textFieldStyles, captchaBoxStyles,
-    buttonStyles, loginTextStyles, loginButtonStyles } from 'src/app/styles';
-import { dropDownCities } from "src/app/lib/cities"
+    buttonStyles, loginTextStyles, loginButtonStyles } from '@/app/styles/form-styles';
+import { dropDownCities } from "@/app/utils/cities"
 
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
 const today = new Date();

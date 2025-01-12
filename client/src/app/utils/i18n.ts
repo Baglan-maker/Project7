@@ -7,13 +7,17 @@ import enLogin from '../locales/en/login.json';
 import ruLogin from '../locales/ru/login.json';
 import enRegister from '../locales/en/register.json';
 import ruRegister from '../locales/ru/register.json';
+import ruDashboard from '../locales/ru/dashboard.json';
+import enDashboard from '../locales/en/dashboard.json';
 
 const resources = {
     en: {
+        dashboard: enDashboard,
         login: enLogin,
         register: enRegister,
     },
     ru: {
+        dashboard: ruDashboard,
         login: ruLogin,
         register: ruRegister,
     },
@@ -24,9 +28,9 @@ if (!i18n.isInitialized) {
         .use(initReactI18next)
         .init({
             resources,
-            lng: 'en', // русский как язык по умолчанию
+            lng: 'en', // язык по умолчанию
             fallbackLng: 'en',
-            ns: ['login', 'register'],
+            ns: ['login', 'register', 'dashboard'],
             defaultNS: 'login',
             interpolation: {
                 escapeValue: false,

@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import i18n from './src/../lib/i18n';
+import i18n from './src/../utils/i18n';
 import { I18nextProvider } from 'react-i18next';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from "./theme";
+import theme from "./styles/theme";
 
 export default function RootLayout({ children }: {
   children: React.ReactNode;

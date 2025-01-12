@@ -2,7 +2,7 @@
 import React from "react";
 import LoginForm from "./AuthForm";
 import { useRouter } from "next/navigation";
-import LanguageSwitcher from '../../components/LanguageSwitcher';
+import LanguageSwitcher from '../../components/common/LanguageSwitcher';
 
 const LoginPage = () => {
     const router = useRouter();
