@@ -1,8 +1,5 @@
-'use client';
-
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
 import enLogin from '../locales/en/login.json';
 import ruLogin from '../locales/ru/login.json';
 import enRegister from '../locales/en/register.json';
@@ -23,29 +20,23 @@ const resources = {
     },
 };
 
-const isClient = typeof window !== 'undefined';
+// Устанавливаем начальный язык как 'en', если нет сохраненной локали в localStorage.
+const defaultLanguage = 'en';
 
-const initializeI18n = async () => {
-    const currentLocale = isClient ? localStorage.getItem('locale') || 'en' : 'en';
-
-    if (!i18n.isInitialized) {
-        await i18n
-            .use(initReactI18next)
-            .init({
-                resources,
-                lng: currentLocale,
-                fallbackLng: 'en',
-                ns: ['login', 'register', 'dashboard'],
-                defaultNS: 'login',
-                interpolation: {
-                    escapeValue: false,
-                },
-            });
-    }
-};
-
-if (isClient) {
-    initializeI18n();
+// Инициализация i18n без локали
+if (!i18n.isInitialized) {
+    i18n
+        .use(initReactI18next)
+        .init({
+            resources,
+            lng: defaultLanguage, // Местное значение будет установлено позже на клиенте
+            fallbackLng: 'en',
+            ns: ['login', 'register', 'dashboard'],
+            defaultNS: 'login',
+            interpolation: {
+                escapeValue: false,
+            },
+        });
 }
 
 export default i18n;
