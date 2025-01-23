@@ -23,20 +23,29 @@ const resources = {
     },
 };
 
+const isClient = typeof window !== 'undefined';
 
-if (!i18n.isInitialized) {
-    i18n
-        .use(initReactI18next)
-        .init({
-            resources,
-            lng: 'en',
-            fallbackLng: 'en',
-            ns: ['login', 'register', 'dashboard'],
-            defaultNS: 'login',
-            interpolation: {
-                escapeValue: false,
-            },
-        });
+const initializeI18n = async () => {
+    const currentLocale = isClient ? localStorage.getItem('locale') || 'en' : 'en';
+
+    if (!i18n.isInitialized) {
+        await i18n
+            .use(initReactI18next)
+            .init({
+                resources,
+                lng: currentLocale,
+                fallbackLng: 'en',
+                ns: ['login', 'register', 'dashboard'],
+                defaultNS: 'login',
+                interpolation: {
+                    escapeValue: false,
+                },
+            });
+    }
+};
+
+if (isClient) {
+    initializeI18n();
 }
 
 export default i18n;
