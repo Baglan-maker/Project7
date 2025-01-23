@@ -25,6 +25,7 @@ const LanguageSwitcherDash: React.FC<LanguageSwitcherDashProps> = ({ style , onL
 
     const switchLanguage = (language: string) => {
         i18n.changeLanguage(language);
+        localStorage.setItem('locale', language);
         onLanguageChange(language);
         handleClose();  // Закрыть меню после выбора языка
     };
