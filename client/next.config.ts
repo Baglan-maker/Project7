@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
 };
 
 module.exports = {
+    reactStrictMode: true,
+    compiler: {
+        emotion: true, // Включает поддержку Emotion
+    },
+
 
     webpack: (config: Configuration ) => {
         // Подавляем предупреждения Webpack
