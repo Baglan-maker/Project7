@@ -1,15 +1,13 @@
-import React from 'react';
 import { AppBar, Box, Toolbar } from '@mui/material';
 import LanguageSwitcherDash from "@/app/components/common/LanguageSwitcherDash";
 
 const Navbar = () => {
     return (
         <div>
-            <LanguageSwitcherDash
-                style={{
-                    position: 'fixed',
-                    zIndex: 9999,
-                }}
+            <LanguageSwitcherDash  onLanguageChange={(newLocale) => {
+
+            }}
+                style={{ position: 'fixed', zIndex: 2,}}
             />
             <AppBar
                 position="fixed"

@@ -195,4 +195,16 @@ export const userListStyles = {
     textAlign: 'left',
 };
 
+export const categoryButtonStyles = {
+    height: {xs: '45px'},
+    minWidth: {xs: '60px', sm: '110px'}, // Минимальная ширина для всех кнопок
+    textAlign: 'center',
+    padding: { xs: '8px 10px', sm: '10px 15px' },
+    fontSize: { xs: '0.68rem', sm: '0.875rem' },
+    flexBasis: {
+        xs: '100%', // Растягивается на всю ширину на мобильных
+        sm: 'auto', // Подстраивается под содержимое на планшетах и выше
+    },
+};
+
 

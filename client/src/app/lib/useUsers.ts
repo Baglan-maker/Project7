@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import api from '@/app/lib/axios';
 import { toast } from 'react-toastify';

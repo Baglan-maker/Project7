@@ -23,12 +23,14 @@ const resources = {
     },
 };
 
+const currentLocale = localStorage.getItem('locale') || 'en';
+
 if (!i18n.isInitialized) {
     i18n
         .use(initReactI18next)
         .init({
             resources,
-            lng: 'en', // язык по умолчанию
+            lng: currentLocale,
             fallbackLng: 'en',
             ns: ['login', 'register', 'dashboard'],
             defaultNS: 'login',

@@ -6,10 +6,11 @@ import { Button, Box, Menu, MenuItem } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
 
 interface LanguageSwitcherDashProps {
-    style?: React.CSSProperties; // Убедитесь, что style может быть передан
+    style?: React.CSSProperties;
+    onLanguageChange: (language: string) => void;
 }
 
-const LanguageSwitcherDash: React.FC<LanguageSwitcherDashProps> = ({ style }) => {
+const LanguageSwitcherDash: React.FC<LanguageSwitcherDashProps> = ({ style , onLanguageChange}) => {
     const { i18n } = useTranslation();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -24,11 +25,12 @@ const LanguageSwitcherDash: React.FC<LanguageSwitcherDashProps> = ({ style }) =>
 
     const switchLanguage = (language: string) => {
         i18n.changeLanguage(language);
+        onLanguageChange(language);
         handleClose();  // Закрыть меню после выбора языка
     };
 
     return (
-        <Box sx={{ position: 'fixed', top: { xs: 9, sm: 13 }, right: { xs: 20, sm: 170 }, zIndex: 9999, }}>
+        <Box sx={{ position: 'fixed', top: { xs: 9, sm: 13 }, right: { xs: 20, sm: 170 }, zIndex: 2, ...style }}>
             <Button
                 variant="outlined"
                 endIcon={<ArrowDropDown />}
