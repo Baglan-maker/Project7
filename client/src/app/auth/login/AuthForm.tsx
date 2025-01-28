@@ -88,6 +88,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 } else {
                     setAlertMessage("Неверный ИИН или пароль.");
                 }
+            }
 
             setAlertMessage(t("Неверный ИИН или пароль.1"));
             setAlertSeverity("error");
