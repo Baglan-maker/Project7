@@ -14,16 +14,11 @@ const handleLogout = async () => {
         }
 };
 
-// Проверка статуса сети
-const isNetworkAvailable = () => {
-    return navigator.onLine;
-};
-
 // Интерсептор запроса
 api.interceptors.request.use(
     (config) => {
-        if (!isNetworkAvailable()) {
-            // Если сеть недоступна, выбрасываем ошибку до отправки запроса
+        if (!navigator.onLine) {
+            // Выбрасываем ошибку, если сети нет
             return Promise.reject({
                 response: {
                     status: 503,
@@ -40,6 +35,15 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
+        if (error.code === "ERR_NETWORK") {
+            return Promise.reject({
+                response: {
+                    status: 503,
+                    data: { message: "Сеть недоступна. Проверьте подключение." },
+                },
+            });
+        }
+
         const originalRequest = error.config;
 
         if (originalRequest.url.includes('/refresh') && error.response?.status === 401) {
