@@ -87,12 +87,13 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 if (error.response?.status === 503) {
                     setAlertMessage("Сеть недоступна. Проверьте подключение к интернету.");
                     setAlertSeverity("error");
-                } else if (error.response) {
-                    setAlertMessage("Неверный ИИН или пароль.");
+                } else if (!error.response) {
+                    // Ошибка сети, нет ответа от сервера
+                    setAlertMessage("Ошибка сети. Проверьте подключение к интернету.");
                     setAlertSeverity("error");
                 } else {
-                    // Обработка случаев, если response отсутствует
-                    setAlertMessage("Ошибка сети. Проверьте подключение к интернету.");
+                    // Любая другая ошибка от сервера
+                    setAlertMessage("Неверный ИИН или пароль.");
                     setAlertSeverity("error");
                 }
             } else {
