@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {CircularProgress, Alert, TextField, Button, Box, Typography, InputAdornment, IconButton} from "@mui/material";
 import api from "src/app/lib/axios";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -44,11 +44,9 @@ type Inputs = {
     confirmPassword: string;
 };
 
-const ResetPasswordContent = () => {
+const ResetPasswordContent = ({ token }: { token: string }) => {
     const { t } = useTranslation("login");
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const token = searchParams.get("token");
 
     const [loading, setLoading] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
