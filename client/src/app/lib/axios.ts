@@ -14,12 +14,16 @@ const handleLogout = async () => {
         }
 };
 
-// Интерсептор ответа
-api.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        if (!error.response) {
-            // Обработка ошибки сети (нет интернета)
+// Проверка статуса сети
+const isNetworkAvailable = () => {
+    return navigator.onLine;
+};
+
+// Интерсептор запроса
+api.interceptors.request.use(
+    (config) => {
+        if (!isNetworkAvailable()) {
+            // Если сеть недоступна, выбрасываем ошибку до отправки запроса
             return Promise.reject({
                 response: {
                     status: 503,
@@ -27,7 +31,15 @@ api.interceptors.response.use(
                 },
             });
         }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 
+// Интерсептор ответа
+api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
         const originalRequest = error.config;
 
         if (originalRequest.url.includes('/refresh') && error.response?.status === 401) {
