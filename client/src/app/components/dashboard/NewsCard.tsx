@@ -9,10 +9,10 @@ type NewsCardProps = Pick<NewsItem, 'slug' | 'title' | 'description' | 'cardImag
 
 const NewsCard: React.FC<NewsCardProps> = ({ slug, title, description, cardImages }) => {
     const [imageLoaded, setImageLoaded] = useState(false);
-    const strapiBaseUrl = 'https://diplomatic-prosperity-9c731615c5.strapiapp.com';
     const imageUrl = cardImages?.formats?.small?.url
-        ? `${strapiBaseUrl}${cardImages.formats.small.url}`
+        ? cardImages.formats.small.url
         : 'https://via.placeholder.com/150';
+
     return (
         <Link href={`/news/${slug}`} passHref
                 style={{

@@ -27,7 +27,6 @@ const NewsPage = () => {
     const [currentSlug, setCurrentSlug] = useState(slug);
     const [imageLoaded, setImageLoaded] = useState(false); // Отслеживание загрузки изображения
     const [localeLoaded, setLocaleLoaded] = useState(false); // Для отслеживания загрузки локали
-    const strapiBaseUrl = 'https://diplomatic-prosperity-9c731615c5.strapiapp.com';
 
     useEffect(() => {
         // Используем useEffect для получения локали только на клиенте
@@ -57,7 +56,7 @@ const NewsPage = () => {
                 const fetchedNews = response.data.data?.[0];
                 if (fetchedNews) {
                     const imageUrl = fetchedNews.cardImages?.formats?.small?.url
-                        ? `${strapiBaseUrl}${fetchedNews.cardImages.formats.small.url}`
+                        ? fetchedNews.cardImages.formats.small.url
                         : null;
 
                     setNewsItem({

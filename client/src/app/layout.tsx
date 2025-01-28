@@ -8,7 +8,7 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import theme from "./styles/theme";
 import { usePathname } from 'next/navigation';
 
-const siteKey = "6LfRSsMqAAAAALZ0zdZU8URWgw78ulVauJZ7Us8T";
+const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();

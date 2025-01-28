@@ -33,7 +33,7 @@ exports.forgotPassword = async (req, res) => {
             [resetToken, tokenExpiration, iin]
         );
 
-        const resetLink = `https://project7-lilac.vercel.app/auth/reset-password?token=${resetToken}`;
+        const resetLink = `${process.env.PROD_CLIENT_URL}/auth/reset-password?token=${resetToken}`;
         const html = passwordResetTemplate(resetLink, 15);
 
         await sendEmail(user.email, 'Сброс пароля', html);

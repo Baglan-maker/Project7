@@ -2,7 +2,7 @@ import axios from "axios";
 import { StrapiItem, ArticleAttributes, NewsAttributes, CategoryAttributes } from "../types/types";
 
 const strapiApi = axios.create({
-    baseURL: "https://diplomatic-prosperity-9c731615c5.strapiapp.com/api",
+    baseURL: process.env.NEXT_PUBLIC_PROD_STRAPI_URL,
     headers: {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${process.env.NEXT_PUBLIC_PROD_STRAPI_KEY}`

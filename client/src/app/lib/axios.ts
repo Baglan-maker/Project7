@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: 'http://localhost:5000/api',
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true, // Автоматическая отправка cookies
 });
@@ -18,7 +18,7 @@ const handleLogout = async () => {
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
-        if (error.code === "ERR_NETWORK") {
+        if (!error.response) {
             // Обработка ошибки сети (нет интернета)
             return Promise.reject({
                 response: {
