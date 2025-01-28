@@ -26,5 +26,6 @@
   "Пароль должен содержать хотя бы одну цифру": "The password must contain at least one digit",
   "Пароль не должен содержать кириллицу": "The password must not contain Cyrillic characters",
   "Пароль не должен содержать пробелов": "The password must not contain spaces",
-  "Эта почта уже зарегистрирована": "This email has already been registered"
+  "Эта почта уже зарегистрирована": "This email has already been registered",
+  "Почта": "Email"
 }

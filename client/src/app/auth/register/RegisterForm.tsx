@@ -137,7 +137,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({onLoginRedirect,}) => {
                         sx={textFieldStyles}
                     />
                     <TextField
-                        label={t("Email")}
+                        label={t("Почта")}
                         fullWidth
                         {...register("email")}
                         error={!!errors.email}
