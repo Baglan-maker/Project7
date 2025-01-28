@@ -182,14 +182,18 @@ const ResetPasswordComponent = ({ token }: { token: string | null }) => {
 };
 
 const ResetPassword = () => {
+    return (
+        <Suspense fallback={<CircularProgress />}>
+            <ResetPasswordWithParams />
+        </Suspense>
+    );
+};
+
+const ResetPasswordWithParams = () => {
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
 
-    return (
-        <Suspense fallback={<CircularProgress />}>
-            <ResetPasswordComponent token={token} />
-        </Suspense>
-    );
+    return <ResetPasswordComponent token={token} />;
 };
 
 export default ResetPassword;
