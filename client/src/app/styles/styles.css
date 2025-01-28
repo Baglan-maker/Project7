@@ -22,3 +22,15 @@ button {
         top: 10px;
     }
 }
+
+@keyframes pulse {
+    0% {
+        background-color: #e0e0e0;
+    }
+    50% {
+        background-color: #f5f5f5;
+    }
+    100% {
+        background-color: #e0e0e0;
+    }
+}

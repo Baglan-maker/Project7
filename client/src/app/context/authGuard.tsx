@@ -75,7 +75,7 @@ export const AuthGuardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         (async () => {
             const isAuthorized = await checkAuthorization();
             if (!isAuthorized) {
-                router.push('/auth/login');
+                router.push("/auth/login?reason=noAccessToken");
             }
         })();
     }, [router]);

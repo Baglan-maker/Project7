@@ -11,6 +11,7 @@ export interface Article {
     content?: string
     documentId: string;
     description?: string;
+    slug?: string;
 }
 
 export interface StrapiItem<T = StrapiAttributes> {
@@ -29,6 +30,7 @@ export interface StrapiItem<T = StrapiAttributes> {
             thumbnail?: { url: string };
         };
     };
+    slug?: string;
 }
 
 export interface ArticleAttributes extends StrapiAttributes {
@@ -41,6 +43,7 @@ export interface NewsAttributes extends StrapiAttributes {
     title: string;
     content: string;
     description?: string;
+    slug?: string;
 }
 
 export interface CategoryAttributes extends StrapiAttributes {
@@ -63,6 +66,7 @@ export interface NewsItem {
     content?: string;
     description?: string;
     cardImages?: CardImages;
+    slug?: string;
 }
 
 export interface NewsListProps {

@@ -4,24 +4,30 @@ import {boxStyles, containerStyles, dividerStyles, homeTypographyStyles, linkSty
 
 export default function Home() {
     return (
-        <Container
-            component="main"
-            sx={containerStyles}>
-            <Typography variant="h3" sx={homeTypographyStyles}>
-                Добро Пожаловать
-            </Typography>
+        <main>
+            <Container
+                component="main"
+                sx={containerStyles}>
+                <header>
+                    <Typography variant="h3" sx={homeTypographyStyles}>
+                        Добро Пожаловать
+                    </Typography>
+                </header>
 
-            <Box sx={boxStyles}>
-                <Link href="/auth/register" sx={linkStyles}>
-                    Регистрация
-                </Link>
-                <Typography variant="body1" sx={dividerStyles}>
-                    |
-                </Typography>
-                <Link href="/auth/login" sx={linkStyles}>
-                    Войти
-                </Link>
-            </Box>
-        </Container>
+                <section>
+                    <Box sx={boxStyles}>
+                        <Link href="/auth/register" sx={linkStyles}>
+                            Регистрация
+                        </Link>
+                        <Typography variant="body1" sx={dividerStyles}>
+                            |
+                        </Typography>
+                        <Link href="/auth/login" sx={linkStyles}>
+                            Войти
+                        </Link>
+                    </Box>
+                </section>
+            </Container>
+        </main>
     );
 }

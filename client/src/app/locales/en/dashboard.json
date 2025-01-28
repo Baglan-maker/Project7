@@ -2,5 +2,6 @@
   "welcome": "Welcome to the Dashboard",
   "logout": "Logout",
   "showUsers": "Show Users",
-  "Все": "All"
+  "Все": "All",
+  "Срок действия вашей сессии истёк. Пожалуйста, войдите снова.": "Your session has expired. Please log in again."
 }

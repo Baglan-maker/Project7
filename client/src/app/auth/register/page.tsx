@@ -8,13 +8,17 @@ const AuthPage = () => {
     const router = useRouter();
 
     return (
-        <div>
-            <RegisterForm
-                onLoginRedirect={() => router.push("/auth/login")}
-            />
-            <LanguageSwitcher />
-        </div>
-    );
+        <main>
+            <section>
+                <RegisterForm
+                    onLoginRedirect={() => router.push("/auth/login")}
+                />
+            </section>
+            <section>
+                <LanguageSwitcher/>
+            </section>
+        </main>
+);
 };
 
 export default AuthPage;

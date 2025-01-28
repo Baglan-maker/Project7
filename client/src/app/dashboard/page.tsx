@@ -49,49 +49,58 @@ const DashboardContent = () => {
     if (loading) return <LoadingScreen />;
 
     return (
-        <Container maxWidth={false} sx={containerStylesDash}>
-            <ToastContainer {...toastConfig} />
-            <Typography variant="h5" sx={welcomeTextStyles}>
-                {t("welcome")}
-            </Typography>
+        <main>
+            <Container maxWidth={false} sx={containerStylesDash}>
+                <ToastContainer {...toastConfig} />
+                <header>
+                    <Box>
+                        <Typography variant="h5" sx={welcomeTextStyles}>
+                            {t("welcome")}
+                        </Typography>
+                        <LanguageSwitcherDash
+                            onLanguageChange={(newLocale) => {
+                                setLocale(newLocale);
+                                localStorage.setItem('locale', newLocale);
+                            }}
+                        />
+                    </Box>
+                </header>
 
-            <LanguageSwitcherDash
-                onLanguageChange={(newLocale) => {
-                    setLocale(newLocale);
-                    localStorage.setItem('locale', newLocale);
-                }}
-            />
+                <nav>
+                    <CategoryFilter
+                        categories={categories}
+                        selectedCategory={selectedCategory}
+                        onCategoryChange={setSelectedCategory}
+                    />
+                    <Tabs value={activeTab} onChange={(e, newValue) => setActiveTab(newValue)} centered>
+                        <Tab label="Статьи"/>
+                        <Tab label="Новости"/>
+                    </Tabs>
+                </nav>
 
-            {/* Категории */}
-            <CategoryFilter
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onCategoryChange={setSelectedCategory}
-            />
+                <section>
+                    {activeTab === 0 && <ArticleList articles={filteredArticles}/>}
+                    {activeTab === 1 && <NewsList news={filteredNews}/>}
+                </section>
 
-            {/* Табы */}
-            <Tabs value={activeTab} onChange={(e, newValue) => setActiveTab(newValue)} centered>
-                <Tab label="Статьи" />
-                <Tab label="Новости" />
-            </Tabs>
+                <aside>
+                    <Box sx={buttonContainerStyles}>
+                        <Button variant="outlined" onClick={fetchUsers} sx={buttonOutlinedStyles}>
+                            {t("showUsers")}
+                        </Button>
+                        <Button variant="outlined" onClick={handleLogout} sx={buttonOutlinedStyles}>
+                            {t("logout")}
+                        </Button>
+                    </Box>
+                </aside>
 
-            {/* Контент */}
-            {activeTab === 0 && <ArticleList articles={filteredArticles} />}
-            {activeTab === 1 && <NewsList news={filteredNews} />}
-
-            <Box sx={buttonContainerStyles}>
-                <Button variant="outlined" onClick={fetchUsers} sx={buttonOutlinedStyles}>
-                    {t("showUsers")}
-                </Button>
-                <Button variant="outlined" onClick={handleLogout} sx={buttonOutlinedStyles}>
-                    {t("logout")}
-                </Button>
-            </Box>
-
-            <Box sx={userListStyles}>
-                <UserList users={users} />
-            </Box>
-        </Container>
+                <footer>
+                    <Box sx={userListStyles}>
+                        <UserList users={users}/>
+                    </Box>
+                </footer>
+            </Container>
+        </main>
     );
 };
 

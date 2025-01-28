@@ -24,7 +24,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles }) => {
                 <Card key={article.id} sx={{ marginBottom: 2 }}>
                     <CardContent>
                         {/* Заголовок */}
-                        <Link href={`/articles/${article.documentId}`} passHref>
+                        <Link href={`/articles/${article.slug}`} passHref>
                             <Typography variant="h6" sx={{ cursor: 'pointer', textDecoration: 'underline' }}>
                                 {article.title}
                             </Typography>

@@ -23,5 +23,8 @@
   "Пароль должен содержать минимум 8 символов": "The password must contain at least 8 characters",
   "Дата должна быть в диапазоне с 1930 года до сегодняшнего дня": "The date should be in the range from 1930 to today",
   "Пароль должен содержать хотя бы одну заглавную букву": "The password must contain at least one capital letter",
-  "Пароль должен содержать хотя бы одну цифру": "The password must contain at least one digit"
+  "Пароль должен содержать хотя бы одну цифру": "The password must contain at least one digit",
+  "Пароль не должен содержать кириллицу": "The password must not contain Cyrillic characters",
+  "Пароль не должен содержать пробелов": "The password must not contain spaces",
+  "Эта почта уже зарегистрирована": "This email has already been registered"
 }

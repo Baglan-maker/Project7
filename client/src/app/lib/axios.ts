@@ -18,6 +18,16 @@ const handleLogout = async () => {
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
+        if (error.code === "ERR_NETWORK") {
+            // Обработка ошибки сети (нет интернета)
+            return Promise.reject({
+                response: {
+                    status: 503,
+                    data: { message: "Сеть недоступна. Проверьте подключение." },
+                },
+            });
+        }
+
         const originalRequest = error.config;
 
         if (originalRequest.url.includes('/refresh') && error.response?.status === 401) {
