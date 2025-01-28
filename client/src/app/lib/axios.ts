@@ -14,12 +14,33 @@ const handleLogout = async () => {
         }
 };
 
+api.interceptors.request.use(
+    (config) => {
+            if (!navigator.onLine) {
+                // Выбрасываем ошибку, если сети нет
+                return Promise.reject({
+                    response: {
+                        status: 503,
+                        data: { message: "Сеть недоступна. Проверьте подключение." },
+                    },
+                });
+            }
+            return config;
+        },
+        (error) => Promise.reject(error)
+    );
+
 // Интерсептор ответа
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
         if (error.code === "ERR_NETWORK") {
-            console.error("Ошибка сети:", error.message);
+            return Promise.reject({
+                response: {
+                    status: 503,
+                    data: { message: "Сеть недоступна. Проверьте подключение." },
+                },
+            });
         }
 
         const originalRequest = error.config;

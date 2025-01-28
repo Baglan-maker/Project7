@@ -83,18 +83,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
         } catch (error) {
             console.error("Login failed", error);
 
-            if (!navigator.onLine) {
-                setAlertMessage("Сеть недоступна. Проверьте подключение.");
-                return;
-            }
-
             if (axios.isAxiosError(error) && error.response) {
                 if (error.response?.status === 503) {
                     setAlertMessage("Сеть недоступна. Проверьте подключение к интернету.");
-                } else if (error.response?.status === 401) {
-                    setAlertMessage("Неверный ИИН или пароль.");
                 } else {
-                    setAlertMessage("Произошла ошибка. Попробуйте снова.");
+                    setAlertMessage("Неверный ИИН или пароль.");
                 }
             }
 
