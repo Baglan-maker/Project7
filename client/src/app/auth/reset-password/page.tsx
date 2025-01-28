@@ -44,7 +44,7 @@ type Inputs = {
     confirmPassword: string;
 };
 
-const ResetPassword = () => {
+const ResetPasswordContent = () => {
     const { t } = useTranslation("login");
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -183,4 +183,4 @@ const ResetPassword = () => {
 );
 };
 
-export default ResetPassword;
+export default ResetPasswordContent;
