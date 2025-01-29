@@ -31,7 +31,7 @@ const LanguageSwitcherDash: React.FC<LanguageSwitcherDashProps> = ({ style , onL
     };
 
     return (
-        <Box sx={{ position: 'fixed', top: { xs: 9, sm: 13 }, right: { xs: 20, sm: 170 }, zIndex: 2, ...style }}>
+        <Box sx={{ position: 'fixed', top: { xs: 9, sm: 13 },  right: { xs: 15, sm: 30, md: 50, lg: 170 }, zIndex: 2, ...style }}>
             <Button
                 variant="outlined"
                 endIcon={<ArrowDropDown />}
@@ -41,6 +41,7 @@ const LanguageSwitcherDash: React.FC<LanguageSwitcherDashProps> = ({ style , onL
                     textTransform: 'none',
                     minWidth: 120,
                     padding: '8px 16px',
+                    fontSize: { xs: '13px', sm: '14px' },
                     background: 'white',
                 }}
             >

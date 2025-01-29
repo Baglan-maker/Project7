@@ -52,7 +52,6 @@ const NewsPage = () => {
                 const response = await strapiApi.get(
                     `/newss?filters[slug][$eq]=${currentSlug}&filters[locale][$eq]=${locale}&populate=*`
                 );
-                console.log('Ответ Strapi:', response.data);
 
                 const fetchedNews = response.data.data?.[0];
                 if (fetchedNews) {

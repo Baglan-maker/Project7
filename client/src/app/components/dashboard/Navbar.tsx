@@ -1,12 +1,10 @@
-import { AppBar, Box, Toolbar } from '@mui/material';
+import {AppBar, Box, Container, Toolbar} from '@mui/material';
 import LanguageSwitcherDash from "@/app/components/common/LanguageSwitcherDash";
 
 const Navbar = () => {
     return (
         <div>
-            <LanguageSwitcherDash  onLanguageChange={(newLocale) => {
-
-            }}
+            <LanguageSwitcherDash  onLanguageChange={(newLocale) => {}}
                 style={{ position: 'fixed', zIndex: 2,}}
             />
             <AppBar
@@ -20,24 +18,28 @@ const Navbar = () => {
                     borderBottom: '1px solid #ccc',
                 }}
             >
-                <Toolbar
-                    sx={{
-                        justifyContent: 'space-between',
-                        paddingX: 2,
-                    }}
-                >
-                    <Box
-                        component="img"
-                        src="/logo_christmas.925c2cb761f2a4c94456.png"
-                        alt="Logo"
+                <Container maxWidth="lg">
+                    <Toolbar
                         sx={{
-                            height: 40, // Высота логотипа
-                            cursor: 'pointer',
-                            marginLeft: { xs: 1, sm: 20 },
+                            justifyContent: 'space-between',
+                            paddingX: { xs: 2, md: 3 },
                         }}
-                        onClick={() => window.location.href = '/'}
-                    />
-                </Toolbar>
+                    >
+                        <Box
+                            component="img"
+                            src="/logo_christmas.925c2cb761f2a4c94456.png"
+                            alt="Logo"
+                            sx={{
+                                height: { xs: 38.5, sm: 40 },
+                                cursor: 'pointer',
+                                position: 'absolute',
+                                top: { xs: 9, sm: 13 },
+                                left: { xs: 5, sm: 20, md: 30, lg: 0 },
+                            }}
+                            onClick={() => window.location.href = '/'}
+                        />
+                    </Toolbar>
+                </Container>
             </AppBar>
         </div>
     );
