@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '@/app/lib/useUsers';
+import { User } from '@/app/utils/useUsers';
 
 interface UserListProps {
     users: User[];

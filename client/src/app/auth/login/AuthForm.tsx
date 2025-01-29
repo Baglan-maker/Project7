@@ -8,9 +8,9 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import api from "../../lib/axios";
+import Link from "next/link";
 import { loginFormStyles, loginTypographyStyles, loginAlertStyles, authLoginButtonStyles,
     registerTextStyles, registerButtonStyles, } from '@/app/styles/form-styles';
-import Link from "next/link";
 
 const getValidationSchema = (t: (key: string) => string) =>
     z.object({

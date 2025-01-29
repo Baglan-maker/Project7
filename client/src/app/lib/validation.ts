@@ -49,14 +49,14 @@ export const getValidationSchema = (t: (key: string) => string) => {
     });
 };
 
-export const loginValidationSchema = (t: (key: string) => string) => z.object({
-    iin: z.string().regex(/^\d{12}$/, t("ИИН должен содержать 12 цифр")).nonempty(t("ИИН обязателен")),
-    password: z
-        .string()
-        .min(8, t("Пароль должен содержать минимум 8 символов"))
-        .regex(/[A-Z]/, t("Пароль должен содержать хотя бы одну заглавную букву"))
-        .regex(/\d/, t("Пароль должен содержать хотя бы одну цифру"))
-        .nonempty(t("Пароль обязателен"))
-        .refine((password) => !password.includes(" "), { message: t("Пароль не должен содержать пробелов") })
-        .refine((password) => !/[а-яА-ЯёЁ]/.test(password), { message: t("Пароль не должен содержать кириллицу") }),
-});
+// export const loginValidationSchema = (t: (key: string) => string) => z.object({
+//     iin: z.string().regex(/^\d{12}$/, t("ИИН должен содержать 12 цифр")).nonempty(t("ИИН обязателен")),
+//     password: z
+//         .string()
+//         .min(8, t("Пароль должен содержать минимум 8 символов"))
+//         .regex(/[A-Z]/, t("Пароль должен содержать хотя бы одну заглавную букву"))
+//         .regex(/\d/, t("Пароль должен содержать хотя бы одну цифру"))
+//         .nonempty(t("Пароль обязателен"))
+//         .refine((password) => !password.includes(" "), { message: t("Пароль не должен содержать пробелов") })
+//         .refine((password) => !/[а-яА-ЯёЁ]/.test(password), { message: t("Пароль не должен содержать кириллицу") }),
+// });

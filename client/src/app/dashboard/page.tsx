@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { toastConfig } from '../utils/toastConfig';
 import { AuthGuardProvider, useAuthGuard } from '@/app/context/authGuard';
 import {Box, Button, Typography, Container, Tabs, Tab} from '@mui/material';
-import { useUsers } from '@/app/lib/useUsers';
+import { useUsers } from '@/app/utils/useUsers';
 import UserList from '@/app/components/dashboard/UserList';
 import { useTranslation } from 'react-i18next';
 import Navbar from '@/app/components/dashboard/Navbar';

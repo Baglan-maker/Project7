@@ -52,9 +52,16 @@ const ForgotPassword = () => {
                     setAlertSeverity("error");
                 }
             } else {
-                console.error(error);
-                setAlertMessage(t("Ошибка при запросе сброса пароля"));
-                setAlertSeverity("error");
+                // @ts-ignore
+                if (error.response?.status === 503) {
+                    setAlertMessage(t("Сеть недоступна. Проверьте подключение к интернету"));
+                    setAlertSeverity("error");
+                }
+                else {
+                    console.error(error);
+                    setAlertMessage(t("Ошибка при запросе сброса пароля"));
+                    setAlertSeverity("error");
+                }
             }
         } finally {
             setLoading(false);
