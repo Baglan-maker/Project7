@@ -8,6 +8,7 @@ import LoadingScreen from "@/app/components/common/LoadingScreen";
 import Navbar from "@/app/components/dashboard/Navbar";
 import LanguageSwitcherDash from "@/app/components/common/LanguageSwitcherDash";
 import { AuthGuardProvider } from '@/app/context/authGuard';
+import "./styles/styles";
 import SessionExpiredDialog from "@/app/components/modals/SessionExpiredDialog";
 
 interface News {

@@ -11,7 +11,6 @@ import api from "../../lib/axios";
 import { loginFormStyles, loginTypographyStyles, loginAlertStyles, authLoginButtonStyles,
     registerTextStyles, registerButtonStyles, } from '@/app/styles/form-styles';
 import Link from "next/link";
-import axios from "axios";
 
 const getValidationSchema = (t: (key: string) => string) =>
     z.object({
@@ -85,20 +84,19 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
             // @ts-ignore
             if (error.response?.status === 503) {
-                    setAlertMessage("Сеть недоступна. Проверьте подключение к интернету.");
+                    setAlertMessage(t("Сеть недоступна. Проверьте подключение к интернету"));
                     setAlertSeverity("error");
                 } else { // @ts-ignore
                 if (!error.response) {
                     // Ошибка сети, нет ответа от сервера
-                    setAlertMessage("Ошибка сети. Проверьте подключение к интернету.");
+                    setAlertMessage(t("Ошибка сети. Проверьте подключение к интернету"));
                     setAlertSeverity("error");
                                 } else {
-                                    // Любая другая ошибка от сервера
-                                    setAlertMessage("Неверный ИИН или пароль.");
+                                    // Любая другая ошибка
+                                    setAlertMessage(t("Неверный ИИН или пароль"));
                                     setAlertSeverity("error");
                                 }
             }
-
             setIsSubmitting(false);
         }
     };

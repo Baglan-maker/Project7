@@ -2,15 +2,7 @@
 
 import React, { useState} from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Box, Button,
-    TextField,
-    Typography,
-    Alert,
-    MenuItem,
-    CircularProgress,
-    InputAdornment,
-    IconButton
-} from "@mui/material";
+import { Box, Button, TextField, Typography, Alert, MenuItem, CircularProgress, InputAdornment, IconButton} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getValidationSchema } from "@/app/lib/validation";
@@ -98,6 +90,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({onLoginRedirect,}) => {
                     setAlertMessage(t("Не удалось зарегистрировать пользователя. Попробуйте еще раз позже"));
                     setAlertSeverity("error");
                 }
+            }
+            // @ts-ignore
+            if (error.response?.status === 503) {
+                setAlertMessage(t("Сеть недоступна. Проверьте подключение к интернету"));
+                setAlertSeverity("error");
             }
         }
     };

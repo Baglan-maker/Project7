@@ -6,6 +6,7 @@ import { I18nextProvider } from 'react-i18next';
 import { ThemeProvider } from '@mui/material/styles';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import theme from "./styles/theme";
+import "./styles/styles.css"
 import { usePathname } from 'next/navigation';
 
 const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";

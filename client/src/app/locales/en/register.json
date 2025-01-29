@@ -27,5 +27,6 @@
   "Пароль не должен содержать кириллицу": "The password must not contain Cyrillic characters",
   "Пароль не должен содержать пробелов": "The password must not contain spaces",
   "Эта почта уже зарегистрирована": "This email has already been registered",
-  "Почта": "Email"
+  "Почта": "Email",
+  "Сеть недоступна. Проверьте подключение к интернету": "The network is unavailable. Check your internet connection"
 }

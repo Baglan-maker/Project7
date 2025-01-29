@@ -34,3 +34,9 @@ button {
         background-color: #e0e0e0;
     }
 }
+
+/* Скрывает значок reCAPTCHA */
+.grecaptcha-badge {
+    visibility: hidden;
+    display: none !important;
+}
